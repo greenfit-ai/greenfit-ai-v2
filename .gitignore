@@ -1,0 +1,8 @@
+.env
+greenfitai-chatbot-ui/node_modules/
+greenfitai-backend/.legacy/
+greenfitai-backend/__pycache__/
+.ui/
+new_chatbot_app.code-workspace
+greenfitai-data/
+.ssh/

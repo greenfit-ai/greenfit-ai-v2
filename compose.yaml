@@ -1,0 +1,47 @@
+name: greenfitai
+
+services:
+  ui:
+    build:
+      context: ./chatbot-ui/
+      dockerfile: Dockerfile 
+    ports:
+      - "8502:80"
+    networks:
+      - nginxproxymanager
+  backend:
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile
+    ports:
+      - "8091:443"
+    networks:
+      - nginxproxymanager
+    secrets:
+      - gemini_key
+      - qdrant_key
+      - qdrant_db
+      - rapid_key
+      - cohere_key
+      - certificate
+      - privatekey
+
+secrets:
+  gemini_key:
+    environment: GEMINI_API_KEY
+  qdrant_key:
+    environment: qdrant_api_key
+  qdrant_db:
+    environment: qdrant_url
+  rapid_key:
+    environment: rapid_api_key
+  cohere_key:
+    environment: cohere_api_key
+  certificate:
+    file: .ssh/cert.pem
+  privatekey:
+    file: .ssh/key.pem
+
+networks:
+  nginxproxymanager:
+    external: true
